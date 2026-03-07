@@ -55,7 +55,8 @@ function Movies() {
       </form>
 
       <section id='movie-display'>
-        {movies?.map((movie) => <Link key={movie.imdbID} to={movie.imdbID}> <MovieCard movieTitle={movie.Title} movieImage={movie.Poster} movieRelease={movie.Year} /></Link>)}
+        
+        {movies?.map((movie) => <Link key={movie.imdbID} to={movie.Title}> <MovieCard movieTitle={movie.Title} movieImage={movie.Poster} movieRelease={movie.Year} /></Link>)}
       </section>
       
 
@@ -74,7 +75,7 @@ function Movie(){
   
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch (defaultApiUrl+apiKey+"&i="+movie)
+      const response = await fetch (defaultApiUrl+apiKey+"&t="+movie)
       const data = await response?.json()
       console.log("Fra movie apifetch:", data)
       setCurrentMovie(data)
