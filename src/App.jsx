@@ -85,9 +85,13 @@ function Movie(){
 
   return(
     <>
-      <h1>{currentMovie?.Title}</h1>
+      <h1>{movie}</h1>
       <h2>{currentMovie?.Released}, Rated: {currentMovie?.Rated}, {currentMovie?.Runtime}</h2>
-      <img src={currentMovie?.Poster} alt={currentMovie?.title} />
+      
+      {currentMovie?.Poster !== "N/A" ? 
+      (<img src={currentMovie?.Poster} alt={currentMovie?.title} />)
+      : (<p>No movie poster</p>)}
+      
       <h3>IMDB-Rating: {currentMovie?.imdbRating} / 10, votes: {currentMovie?.imdbVotes}</h3>
       <h4>Genre: {currentMovie?.Genre} </h4>
       <p>{currentMovie?.Plot}</p>
@@ -101,7 +105,9 @@ function MovieCard({movieTitle, movieImage, movieRelease}){
     <>
       <article>
         <h3 title={movieTitle}>{movieRelease}, {movieTitle}</h3>
-        <img src={movieImage} alt={movieTitle} />
+        {movieImage && movieImage !== "N/A" ? (
+          <img src={movieImage} alt={movieTitle} /> ) : (<p>Ingen bilde for film</p>)
+        }
       </article>
     </>
   )
