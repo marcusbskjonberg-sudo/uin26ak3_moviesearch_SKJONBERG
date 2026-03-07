@@ -76,7 +76,7 @@ function Movie(){
     const fetchData = async () => {
       const response = await fetch (defaultApiUrl+apiKey+"&i="+movie)
       const data = await response?.json()
-      console.log("Movie fetch:", data)
+      console.log("Fra movie apifetch:", data)
       setCurrentMovie(data)
     }
     fetchData()
