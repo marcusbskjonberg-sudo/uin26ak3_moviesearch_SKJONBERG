@@ -38,10 +38,10 @@ function Movies() {
       console.log("Fra Movies apiFetch:", data)
     }
 
-    // USE EFFECT for automatisk søking når input-feltet for filmsøk er 3 tegn eller mer
-    //useEffect(() => {
-    //  movieSearch.length >= 3 ? apiFetch() : null
-    // }, [movieSearch])
+    /* USE EFFECT for automatisk søking når input-feltet for filmsøk er 3 tegn eller mer
+    useEffect(() => {
+      movieSearch.length >= 3 ? apiFetch() : null
+     }, [movieSearch]) */
     
 
  
