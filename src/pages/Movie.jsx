@@ -11,6 +11,8 @@ export default function Movie(){
   const {movie} = useParams()
   const defaultApiUrl = "http://www.omdbapi.com/?apikey="
   const apiKey = import.meta.env.VITE_API_KEY
+
+  const ratings = currentMovie.ratings
   
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +36,9 @@ export default function Movie(){
       <p>IMDB-Rating: {currentMovie?.imdbRating} / 10, votes: {currentMovie?.imdbVotes}</p>
       <p>Genre: {currentMovie?.Genre} </p>
       <p>{currentMovie?.Plot}</p>
+      <a href={`https://www.imdb.com/title/${currentMovie?.imdbID}`}>IMDB</a>
+
+      
     </>
   )
 }

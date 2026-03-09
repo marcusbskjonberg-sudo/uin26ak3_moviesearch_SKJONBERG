@@ -41,6 +41,7 @@ export default function Movies() {
  
   return(
     <>
+    <h1>Filmer</h1>
       <form>
         <label htmlFor='MovieSearch'>Film</label>
         <input id='MovieSearch' type="search" onChange={(e) => setMovieSearch(e.target.value)} />
@@ -49,7 +50,7 @@ export default function Movies() {
 
       <section id='movie-display'>
         
-        {movies?.map((movie) => <Link key={movie.imdbID} to={movie.Title}> <MovieCard movieTitle={movie.Title} movieImage={movie.Poster} movieRelease={movie.Year} /></Link>)}
+        {movies?.map((movie) => <MovieCard key={movie.imdbID} movieTitle={movie.Title} movieImage={movie.Poster} movieRelease={movie.Year} />)}
       </section>
       
 
