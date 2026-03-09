@@ -38,10 +38,22 @@ function Movies() {
       console.log("Fra Movies apiFetch:", data)
     }
 
-    /* USE EFFECT for automatisk søking når input-feltet for filmsøk er 3 tegn eller mer
+    
     useEffect(() => {
-      movieSearch.length >= 3 ? apiFetch() : null
-     }, [movieSearch]) */
+      //For å ikke bruke unødvendig mange API calls. (1000 daglig limit)
+      //Om søkelengden er mindre enn 3, gjør ingenting. Ellers vent 1 sekund og søk automatisk.
+      if (movieSearch.length < 3) return
+
+      const timeout = setTimeout(() => {
+        apiFetch()
+      }, 1000)
+
+      //reset setTimeout tilbake til 1 sekund når movieSearch staten oppdaterer seg. (hver gang du skriver et nytt tegn)
+      return () => {
+        clearTimeout(timeout)
+      }
+
+     }, [movieSearch]) 
     
 
  
