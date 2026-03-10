@@ -13,6 +13,7 @@ export default function Layout() {
       <Outlet/>
     </main>
     
+    <footer>AK3 Marcus Skjønberg</footer>
     </>
   )
 }

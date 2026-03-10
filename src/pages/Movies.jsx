@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import MovieCard from "../components/MovieCard"
+import MovieDisplay from "../components/MovieDisplay"
 
 export default function Movies() {
 
@@ -14,7 +15,7 @@ export default function Movies() {
     const apiFetch = async () => {
       const response = await fetch(defaultApiUrl+apiKey+"&type=movie&s="+movieSearch)
       const data = await response?.json()
-      setMovies(data.Search)
+      setMovies(data)
       
       console.log("Fra Movies apiFetch:", data)
     }
@@ -41,17 +42,14 @@ export default function Movies() {
  
   return(
     <>
-    <h1>Filmer</h1>
+    {movies?.Response === "False" ? <h2>Søk etter filmer</h2> : <h2>{movies?.totalResults} Filmer</h2> }
       <form>
-        <label htmlFor='MovieSearch'>Film</label>
-        <input id='MovieSearch' type="search" onChange={(e) => setMovieSearch(e.target.value)} />
+        <label htmlFor='MovieSearch'>Filmtittel</label>
+        <input id='MovieSearch' type="search" placeholder="James Bond" onChange={(e) => setMovieSearch(e.target.value)} />
         <button onClick={(e) => {e.preventDefault(); apiFetch()}}>Søk</button>
       </form>
 
-      <section id='movie-display'>
-        
-        {movies?.map((movie) => <MovieCard key={movie.imdbID} movieTitle={movie.Title} movieImage={movie.Poster} movieRelease={movie.Year} />)}
-      </section>
+      <MovieDisplay movies={movies}/>
       
 
     </>
