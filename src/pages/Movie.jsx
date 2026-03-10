@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 
-
-
 export default function Movie(){
 
   const [ currentMovie, setCurrentMovie ] = useState({})
@@ -12,7 +10,6 @@ export default function Movie(){
   const defaultApiUrl = "http://www.omdbapi.com/?apikey="
   const apiKey = import.meta.env.VITE_API_KEY
 
-  const ratings = currentMovie.ratings
   
   useEffect(() => {
     const fetchData = async () => {
