@@ -5,35 +5,42 @@ export default function Movies() {
 
   const [ movies, setMovies ] = useState([])
   const [ movieSearch, setMovieSearch] = useState("James Bond")
+  const [ currentPage, setCurrentPage ] = useState(1)
+  /*Jeg fant et problem med koden min for å håndtere sider: når jeg "spammet" neste side også søkte en ny film samtidig ville et movieCard fra forrige søk henge igjen på neste søk.
+  Jeg testet litt forskjellige ting og kom fram til en løsning der jeg disabler knappene for å bytte side mens api'et fetcher. Bruker useState med en boolean som endres når api'et fetcher
+  og at sideknappene skal være disabled om useStaten loading === true 
+  
+  Jeg fikk problemet en gang etter jeg har lagt til loading men det virker vanskeligere å gjenskape enn før jeg la til loading løsningen.
+  */
+  const [ loading, setLoading ] = useState(false)
 
   const defaultApiUrl = "http://www.omdbapi.com/?apikey="
   const apiKey = import.meta.env.VITE_API_KEY
 
   
-    const apiFetch = async () => {
-      const response = await fetch(defaultApiUrl+apiKey+"&type=movie&s="+movieSearch)
-      const data = await response?.json()
-      setMovies(data)
+  const getMovies = async () => {
+    const response = await fetch(`${defaultApiUrl}${apiKey}&type=movie&s=${movieSearch}&page=${currentPage}`)
+    const data = await response?.json()
+    
+    setMovies(data)
       
-      console.log("Fra Movies apiFetch:", data)
-    }
+    console.log("Fra Movies", data)
+  }
 
     
     useEffect(() => {
-      //For å ikke bruke unødvendig mange API calls. (1000 daglig limit)
-      //Om søkelengden er mindre enn 3, gjør ingenting. Ellers vent 1 sekund og søk automatisk.
-      if (movieSearch.length < 3) return
+      //Setter loading staten til true for å disable knapper for å bla gjennom sider med filmer
+    setLoading(true)
 
-      const timeout = setTimeout(() => {
-        apiFetch()
-      }, 1000)
+      //Etter 1 sekund uten at movieSearch staten oppdaterer seg (søkefeltet for film) kalles getMovies og fetcher fra api'et. Loading staten oppdateres også til false så det blir mulig å søke igjen
+    const timer = setTimeout(() => {
+      getMovies()
+      setLoading(false)
+    }, 1000)
 
-      //reset setTimeout tilbake til 1 sekund når movieSearch staten oppdaterer seg. (hver gang du skriver et nytt tegn)
-      return () => {
-        clearTimeout(timeout)
-      }
-
-     }, [movieSearch]) 
+      //Resetter timeren (1 sekund delay før søk) hver gang movieSearch oppdaterer seg, getMovies vil ikke kalles før 1 sekund etter at vi har sluttet å skrive i søkefeltet for film
+    return () => clearTimeout(timer)
+  }, [movieSearch, currentPage])
     
 
  
@@ -41,11 +48,21 @@ export default function Movies() {
   return(
     <>
     {movies?.Response === "False" ? <h2>Søk etter filmer</h2> : <h2>{movies?.totalResults} Filmer</h2> }
-      <form>
-        <label htmlFor='MovieSearch'>Filmtittel</label>
-        <input id='MovieSearch' type="search" placeholder="James Bond" onChange={(e) => setMovieSearch(e.target.value)} />
-        <button onClick={(e) => {e.preventDefault(); apiFetch()}}>Søk</button>
-      </form>
+      <nav id="movie-nav">
+        <form>
+          <label htmlFor='MovieSearch'>Filmtittel</label>
+          <input id='MovieSearch' type="search" placeholder="James Bond" onChange={(e) => {setCurrentPage(1); setMovieSearch(e.target.value)}} />
+          <button onClick={(e) => {e.preventDefault(); getMovies()}}>Søk</button>
+
+          <button className="page-button" disabled={currentPage === 1 || loading === true} onClick={(e) => {e.preventDefault(); setCurrentPage(currentPage - 1)}}>
+          Forrige
+        </button>
+        <button className="page-button" disabled={currentPage === Math.ceil(movies.totalResults / 10) || loading === true} onClick={(e) => {e.preventDefault() ;setCurrentPage(currentPage + 1)}}>
+          Neste
+        </button>
+        <p id="current-page">{movies.totalResults ? (<>Side {currentPage} / {Math.ceil(movies.totalResults / 10)}</>) : ("ingen resultat")}</p>
+        </form>
+      </nav>
 
       <MovieDisplay movies={movies}/>
       

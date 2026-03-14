@@ -12,13 +12,12 @@ export default function Movie(){
 
   
   useEffect(() => {
-    const fetchData = async () => {
+    const getMovie = async () => {
       const response = await fetch (defaultApiUrl+apiKey+"&t="+movie)
       const data = await response?.json()
-      console.log("Fra movie apifetch:", data)
       setCurrentMovie(data)
     }
-    fetchData()
+    getMovie()
   }, [])
 
   return(
