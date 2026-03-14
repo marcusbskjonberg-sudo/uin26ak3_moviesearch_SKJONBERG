@@ -5,7 +5,7 @@ export default function Layout() {
     <>
     <header>
         <p>AK3 Marcus Skjønberg</p>
-        <nav>
+        <nav id="main-nav">
         <Link to="">Hjem</Link>
         </nav>
     </header>
