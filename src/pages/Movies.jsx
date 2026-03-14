@@ -52,7 +52,7 @@ export default function Movies() {
         <form>
           <label htmlFor='MovieSearch'>Filmtittel</label>
           <input id='MovieSearch' type="search" placeholder="James Bond" onChange={(e) => {setCurrentPage(1); setMovieSearch(e.target.value)}} />
-          <button onClick={(e) => {e.preventDefault(); getMovies()}}>Søk</button>
+          <button disabled={loading === true} onClick={(e) => {e.preventDefault(); getMovies()}}>Søk</button>
 
           <button className="page-button" disabled={currentPage === 1 || loading === true} onClick={(e) => {e.preventDefault(); setCurrentPage(currentPage - 1)}}>
           Forrige
