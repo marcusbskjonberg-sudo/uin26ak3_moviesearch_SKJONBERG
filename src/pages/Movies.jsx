@@ -10,6 +10,8 @@ export default function Movies() {
   /*Jeg fant et problem med koden min for å håndtere sider: når jeg "spammet" neste side fort en del ganger ville et movieCard fra forrige søk henge igjen på neste søk.
   Jeg testet litt forskjellige ting og kom fram til en løsning der jeg disabler knappene for å bytte side mens api'et fetcher. Bruker useState med en boolean som endres når api'et fetcher
   og at sideknappene skal være disabled om useStaten loading === true 
+
+  oppdatering: problemet kan gjenskapes når du blar til siste side for søkeresultatene for "Shrek", usikker hva som gjør dette
   
   Jeg fikk problemet en gang etter jeg har lagt til loading men det virker vanskeligere å gjenskape enn før jeg la til loading løsningen.
   */
