@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import MovieCard from "./MovieCard"
 
 
@@ -11,7 +10,7 @@ export default function MovieDisplay({movies}){
   ) : 
     
       movies?.Search?.map((movie) => (
-        <MovieCard key={movie.imdbID} movieTitle={movie.Title} movieImage={movie.Poster} movieRelease={movie.Year} /> ))
+        <MovieCard key={crypto.randomUUID()} movieTitle={movie.Title} movieImage={movie.Poster} movieRelease={movie.Year} /> ))
     
   }
 </section>

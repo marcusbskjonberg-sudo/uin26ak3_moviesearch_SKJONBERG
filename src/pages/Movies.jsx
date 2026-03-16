@@ -12,7 +12,11 @@ export default function Movies() {
   og at sideknappene skal være disabled om useStaten loading === true 
 
   oppdatering: problemet kan gjenskapes når du blar til siste side for søkeresultatene for "Shrek", usikker hva som gjør dette. Det virker som det bare skjer på side 5 av søkeresultater for filmen shrek.
+  oppdatering 2: Det dukker opp en duplikat av Shrek 5 i Arrayen jeg får av API'en, problemet kan sikkert løses med å lage en type sjekk for å filtrere ut duplikater fra arrayen.
+  SISTE OPPDATERING: Shrek 5 hadde en duplikat imdbID i arrayen og imdbID brukte jeg som key i MovieDisplay.jsx når jeg mappet ut alle filmene til filmvisningen i Movies siden, jeg endret key fra imdbID til crypto randomUUID() og dette løste problemet med at filmen hang fast på siden uansett hva du søkte.
   
+
+
   Jeg fikk problemet en gang etter jeg har lagt til loading men det virker vanskeligere å gjenskape enn før jeg la til loading løsningen.
   */
   const [ loading, setLoading ] = useState(false)
@@ -35,6 +39,9 @@ export default function Movies() {
     useEffect(() => {
       //Setter loading staten til true for å disable knapper for å bla gjennom sider med filmer
     setLoading(true)
+    
+    //Å tømme arrayen for hver gang useEffecten oppdaterer seg med setMovies([]) (tom array) er en løsning jeg kom fram til for å forhindre duplikatfilmer i API arrayen fra å "henge seg fast" på siden, velger å ha det kommentert ut siden det ikke var en veldig fin løsning fra brukeren av nettsidens perspektiv. Dette renser bare arrayen i useStaten for hver gang useEffecten sine dependencies oppdateres.
+    //setMovies([])
 
       //Etter 1 sekund uten at movieSearch staten oppdaterer seg (søkefeltet for film) kalles getMovies og fetcher fra api'et. Loading staten oppdateres også til false så det blir mulig å søke igjen
     const timer = setTimeout(() => {
