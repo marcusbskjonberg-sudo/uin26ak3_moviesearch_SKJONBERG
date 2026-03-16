@@ -11,7 +11,7 @@ export default function Movies() {
   Jeg testet litt forskjellige ting og kom fram til en løsning der jeg disabler knappene for å bytte side mens api'et fetcher. Bruker useState med en boolean som endres når api'et fetcher
   og at sideknappene skal være disabled om useStaten loading === true 
 
-  oppdatering: problemet kan gjenskapes når du blar til siste side for søkeresultatene for "Shrek", usikker hva som gjør dette
+  oppdatering: problemet kan gjenskapes når du blar til siste side for søkeresultatene for "Shrek", usikker hva som gjør dette. Det virker som det bare skjer på side 5 av søkeresultater for filmen shrek.
   
   Jeg fikk problemet en gang etter jeg har lagt til loading men det virker vanskeligere å gjenskape enn før jeg la til loading løsningen.
   */
