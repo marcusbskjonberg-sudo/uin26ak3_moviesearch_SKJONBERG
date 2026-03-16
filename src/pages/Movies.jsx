@@ -3,10 +3,11 @@ import MovieDisplay from "../components/MovieDisplay"
 
 export default function Movies() {
 
+  //useStates
   const [ movies, setMovies ] = useState([])
   const [ movieSearch, setMovieSearch] = useState("James Bond")
   const [ currentPage, setCurrentPage ] = useState(1)
-  /*Jeg fant et problem med koden min for å håndtere sider: når jeg "spammet" neste side også søkte en ny film samtidig ville et movieCard fra forrige søk henge igjen på neste søk.
+  /*Jeg fant et problem med koden min for å håndtere sider: når jeg "spammet" neste side fort en del ganger ville et movieCard fra forrige søk henge igjen på neste søk.
   Jeg testet litt forskjellige ting og kom fram til en løsning der jeg disabler knappene for å bytte side mens api'et fetcher. Bruker useState med en boolean som endres når api'et fetcher
   og at sideknappene skal være disabled om useStaten loading === true 
   
@@ -18,6 +19,7 @@ export default function Movies() {
   const apiKey = import.meta.env.VITE_API_KEY
 
   
+  //Henter filmer fra API basert på søk, sidetall etc og lagrer filmene i movies useStaten
   const getMovies = async () => {
     const response = await fetch(`${defaultApiUrl}${apiKey}&type=movie&s=${movieSearch}&page=${currentPage}`)
     const data = await response?.json()
@@ -47,7 +49,7 @@ export default function Movies() {
  
   return(
     <>
-    {movies?.Response === "False" ? <h2>Søk etter filmer</h2> : <h2>{movies?.totalResults} Filmer</h2> }
+    {movies?.Response === "False" ? <h2>Søk etter filmer</h2> : <h1>{movies?.totalResults} Filmer</h1> }
       <nav id="movie-nav">
         <form>
           <label htmlFor='MovieSearch'>Filmtittel</label>

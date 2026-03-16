@@ -11,6 +11,7 @@ export default function Movie(){
   const apiKey = import.meta.env.VITE_API_KEY
 
   
+  //Use effect med tom dependency for å kjøre når siden er lastet inn, laster inn film basert på movie useParam som hentes fra søkefeltet i nettleseren
   useEffect(() => {
     const getMovie = async () => {
       const response = await fetch (defaultApiUrl+apiKey+"&t="+movie)
@@ -22,8 +23,8 @@ export default function Movie(){
 
   return(
     <>
-      <h2>{movie}</h2>
-      <h3>{currentMovie?.Released}, Rated: {currentMovie?.Rated}, {currentMovie?.Runtime}</h3>
+      <h1>{movie}</h1>
+      <h2>{currentMovie?.Released}, Rated: {currentMovie?.Rated}, {currentMovie?.Runtime}</h2>
       
       {currentMovie?.Poster !== "N/A" ? 
       (<img src={currentMovie?.Poster} alt={currentMovie?.title} />)
